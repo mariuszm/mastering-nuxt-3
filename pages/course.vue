@@ -13,10 +13,25 @@
 
     <div class="flex flex-row justify-center flex-grow">
       <div
-        class="prose mr-4 p-8 bg-white rounded-md min-w-[20ch] flex flex-col"
+        class="prose mr-4 p-8 bg-white rounded-md min-w-[20ch] max-w-[30ch] flex flex-col"
       >
         <h3>Chapters</h3>
-        <!-- All the lessons for the course listed here -->
+        <div
+          class="flex flex-col mb-4 space-y-1"
+          v-for="chapter in chapters"
+          :key="chapter.slug"
+        >
+          <h4>{{ chapter.title }}</h4>
+          <NuxtLink
+            class="flex flex-row px-4 py-1 -mx-4 space-x-1 font-normal prose-sm no-underline"
+            v-for="(lesson, index) in chapter.lessons"
+            :key="lesson.slug"
+            :to="`/course/chapter/${chapter.slug}/lesson/${lesson.slug}`"
+          >
+            <span class="text-gray-500">{{ index + 1 }}. </span>
+            <span>{{ lesson.title }}</span>
+          </NuxtLink>
+        </div>
       </div>
 
       <div class="prose p-12 bg-white rounded-md w-[65ch]">
@@ -25,3 +40,7 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const { chapters } = useCourse();
+</script>
