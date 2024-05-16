@@ -48,7 +48,7 @@ const title = computed(() => {
 useHead({ title });
 
 // track the state of LessonCompleteButton
-const progress = useState('progress', (): Boolean[][] => []);
+const progress = useLocalStorage<Boolean[][]>('progress', []);
 
 // grab the state that we're looking for from our progress state
 const isLessonComplete = computed(() => {
