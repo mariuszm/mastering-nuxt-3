@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-center w-full h-full min-h-screen p-12 bg-gray-100"
+    class="flex flex-col items-center w-full h-full min-h-screen p-12 bg-blue-100"
   >
     <div class="mb-12 prose">
       <h1>
