@@ -35,6 +35,11 @@
 const course = useCourse();
 const route = useRoute();
 
+// simulate an error when opening 3rd lesson
+if (route.params.lessonSlug === '3-typing-component-events') {
+  console.log(route.params.paramthatdoesnotexistwhoops.capitalizeIsNotAMethod());
+}
+
 const chapter = computed(() => {
   return course.chapters.find(chapter => chapter.slug === route.params.chapterSlug)!;
 });

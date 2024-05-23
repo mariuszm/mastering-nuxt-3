@@ -63,6 +63,9 @@ import type { NuxtError } from '#app';
 const { chapters } = useCourse();
 
 const resetError = (error: Ref<NuxtError<unknown> | null | undefined>) => {
-  error.value = null;
-}
+  throw createError({
+    fatal: true,
+    message: 'Fatal error',
+  });
+};
 </script>
