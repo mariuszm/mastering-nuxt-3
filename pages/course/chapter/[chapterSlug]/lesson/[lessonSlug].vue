@@ -42,7 +42,7 @@ definePageMeta({
     const chapter = course.chapters.find(chapter => chapter.slug === params.chapterSlug);
 
     if (!chapter) {
-      throw createError({
+      return createError({
         statusCode: 404,
         message: 'Chapter not found',
       });
@@ -51,7 +51,7 @@ definePageMeta({
     const lesson = chapter.lessons.find(lesson => lesson.slug === params.lessonSlug);
 
     if (!lesson) {
-      throw createError({
+      return createError({
         statusCode: 404,
         message: 'Lesson not found',
       });
@@ -59,7 +59,7 @@ definePageMeta({
 
     return true;
   },
-})
+});
 
 // simulate an error when opening 3rd lesson
 if (route.params.lessonSlug === '3-typing-component-events') {
