@@ -24,9 +24,7 @@
     <p>{{ lesson.text }}</p>
     <LessonCompleteButton
       :model-value="isLessonComplete"
-      @update:model-value="
-        throw createError('Could not update');
-      "
+      @update:model-value="throw createError('Could not update');"
     />
   </div>
 </template>
@@ -36,28 +34,33 @@ const course = useCourse();
 const route = useRoute();
 
 definePageMeta({
+  // eslint-disable-next-line
   middleware: function ({ params }, from) {
     const course = useCourse();
 
-    const chapter = course.chapters.find(chapter => chapter.slug === params.chapterSlug);
+    const chapter = course.chapters.find(
+      chapter => chapter.slug === params.chapterSlug,
+    );
 
     if (!chapter) {
       return abortNavigation(
         createError({
           statusCode: 404,
           message: 'Chapter not found',
-        })
+        }),
       );
     }
 
-    const lesson = chapter.lessons.find(lesson => lesson.slug === params.lessonSlug);
+    const lesson = chapter.lessons.find(
+      lesson => lesson.slug === params.lessonSlug,
+    );
 
     if (!lesson) {
       return abortNavigation(
         createError({
           statusCode: 404,
           message: 'Lesson not found',
-        })
+        }),
       );
     }
   },
@@ -65,15 +68,21 @@ definePageMeta({
 
 // simulate an error when opening 3rd lesson
 if (route.params.lessonSlug === '3-typing-component-events') {
-  console.log(route.params.paramthatdoesnotexistwhoops.capitalizeIsNotAMethod());
+  console.log(
+    route.params.paramthatdoesnotexistwhoops.capitalizeIsNotAMethod(),
+  );
 }
 
 const chapter = computed(() => {
-  return course.chapters.find(chapter => chapter.slug === route.params.chapterSlug)!;
+  return course.chapters.find(
+    chapter => chapter.slug === route.params.chapterSlug,
+  )!;
 });
 
 const lesson = computed(() => {
-  return chapter.value.lessons.find(lesson => lesson.slug === route.params.lessonSlug)!;
+  return chapter.value.lessons.find(
+    lesson => lesson.slug === route.params.lessonSlug,
+  )!;
 });
 
 const title = computed(() => {
@@ -83,14 +92,17 @@ const title = computed(() => {
 useHead({ title });
 
 // track the state of LessonCompleteButton
-const progress = useLocalStorage<Boolean[][]>('progress', []);
+const progress = useLocalStorage<boolean[][]>('progress', []);
 
 // grab the state that we're looking for from our progress state
 const isLessonComplete = computed(() => {
-  return progress.value[chapter.value.number - 1]?.[lesson.value.number - 1] ?? false;
+  return (
+    progress.value[chapter.value.number - 1]?.[lesson.value.number - 1] ?? false
+  );
 });
 
 // update progress state
+// eslint-disable-next-line
 const toggleComplete = () => {
   // create a chapter array if it doesn't exist
   if (!progress.value[chapter.value.number - 1]) {
@@ -98,6 +110,7 @@ const toggleComplete = () => {
   }
 
   // set the value (toggling it)
-  (progress.value[chapter.value.number - 1])[lesson.value.number - 1] = !isLessonComplete.value;
-}
+  progress.value[chapter.value.number - 1][lesson.value.number - 1] =
+    !isLessonComplete.value;
+};
 </script>
