@@ -2,8 +2,7 @@
   <div class="mb-12 prose">
     <h1>
       <span class="font-medium">
-        Course:
-        <span class="font-bold">Mastering Nuxt 3</span>
+        <span class="font-bold">{{ title }}</span>
       </span>
     </h1>
   </div>
@@ -60,7 +59,7 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
 
-const { chapters } = useCourse();
+const { chapters, title } = useCourse();
 
 const resetError = (error: Ref<NuxtError<unknown> | null | undefined>) => {
   throw createError({
