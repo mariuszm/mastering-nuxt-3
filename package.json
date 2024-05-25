@@ -8,9 +8,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
-  "dependencies": {
-    "@nuxt/kit": "npm:@nuxt/kit-nightly@latest"
-  },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.13",
     "@nuxtjs/tailwindcss": "^6.12.0",
