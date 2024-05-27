@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div class="mb-12 prose">
-      <h1>
+    <div class="flex items-center justify-between w-full mb-4">
+      <h1 class="text-3xl">
         <span class="font-medium">
           <span class="font-bold">{{ title }}</span>
         </span>
       </h1>
+      <UserCard />
     </div>
+
     <div class="flex flex-row justify-center flex-grow">
       <div
         class="prose mr-4 p-8 bg-white rounded-md min-w-[20ch] max-w-[30ch] flex flex-col"
@@ -28,11 +30,12 @@
               'text-gray-600': lesson.path !== $route.fullPath,
             }"
           >
-            <span class="text-gray-500">{{ index + 1 }}. </span>
+            <span class="text-gray-500">{{ index + 1 }}.</span>
             <span>{{ lesson.title }}</span>
           </NuxtLink>
         </div>
       </div>
+
       <div class="prose p-12 bg-white rounded-md w-[65ch]">
         <NuxtErrorBoundary>
           <NuxtPage />
