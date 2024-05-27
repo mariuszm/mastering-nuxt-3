@@ -13,11 +13,22 @@
 <script setup lang="ts">
 const { title } = useCourse();
 
+const user = useSupabaseUser();
 const supabase = useSupabaseClient();
+
+// based on https://github.com/nuxt-modules/supabase/blob/main/demo/pages/index.vue
+watchEffect(() => {
+  if (user.value) {
+    navigateTo('/');
+  }
+});
 
 const login = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
+    options: {
+      redirectTo: `${useRuntimeConfig().public.baseUrl}/confirm`,
+    },
   });
 
   if (error) {
