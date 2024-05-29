@@ -1,3 +1,8 @@
+/**
+ * TODO: investigate why Hoppscotch doesn't return 405 error (response in JSON)
+ * when using POST method on .get.ts file
+ */
+
 import course from '@/server/courseData';
 import type { Course, LessonWithPath } from "@/types/course";
 
