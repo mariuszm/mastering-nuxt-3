@@ -1,9 +1,10 @@
 import course from '@/server/courseData';
+import type { Course, LessonWithPath } from "@/types/course";
 
-export default defineEventHandler(event => {
-  const { chapterSlug, lessonSlug } = event.context.params;
+export default defineEventHandler((event): LessonWithPath => {
+  const { chapterSlug, lessonSlug } = event.context.params ?? {};
 
-  const chapter = course.chapters.find(chapter => chapter.slug === chapterSlug);
+  const chapter = (course as Course).chapters.find(chapter => chapter.slug === chapterSlug);
 
   if (!chapter) {
     throw createError({
@@ -21,5 +22,8 @@ export default defineEventHandler(event => {
     });
   }
 
-  return lesson;
+  return {
+    ...lesson,
+    path: `/course/chapter/${chapterSlug}/lesson/${lessonSlug}`,
+  };
 });
