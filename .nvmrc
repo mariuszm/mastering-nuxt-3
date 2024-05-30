@@ -1,1 +1,2 @@
-v18.12.0
+shamefully-hoist=true
+strict-peer-dependencies=false
