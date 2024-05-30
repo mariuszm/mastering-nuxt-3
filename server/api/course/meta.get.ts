@@ -25,7 +25,7 @@ type CourseMeta = {
 // 1. provide the course title
 // 2. provide an outline of all of the different lessons (not all data is necessary).
 // We could pick "course" but there's no need to send it all over to the browser.
-
+// eslint-disable-next-line
 export default defineEventHandler((event): CourseMeta => {
   const outline: OutlineChapter[] = course.chapters.reduce(
     (prev: OutlineChapter[], next: Chapter) => {
