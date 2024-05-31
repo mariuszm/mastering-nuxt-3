@@ -32,6 +32,12 @@
 <script setup lang="ts">
 const course = useCourse();
 const route = useRoute();
+const { chapterSlug, lessonSlug } = route.params;
+
+// Instead of passing in a generic string ref, we pass in the slugs
+// so the composable itself will calculate what that URL should be.
+// The structure of the URL is encapsulated nicely within the composable.
+const lesson = await useLesson(chapterSlug, lessonSlug);
 
 definePageMeta({
   middleware: [
@@ -81,12 +87,6 @@ definePageMeta({
 const chapter = computed(() => {
   return course.chapters.find(
     chapter => chapter.slug === route.params.chapterSlug,
-  )!;
-});
-
-const lesson = computed(() => {
-  return chapter.value.lessons.find(
-    lesson => lesson.slug === route.params.lessonSlug,
   )!;
 });
 
