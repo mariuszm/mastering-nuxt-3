@@ -1,27 +1,27 @@
 <template>
   <div>
     <p class="mt-0 mb-1 font-bold uppercase text-slate-400">
-      Lesson {{ chapter.number }} - {{ lesson.number }}
+      Lesson {{ chapter.number }} - {{ lesson?.number }}
     </p>
-    <h2 class="my-0">{{ lesson.title }}</h2>
+    <h2 class="my-0">{{ lesson?.title }}</h2>
     <div class="flex mt-2 mb-8 space-x-4">
       <NuxtLink
-        v-if="lesson.sourceUrl"
+        v-if="lesson?.sourceUrl"
         class="font-normal text-gray-500 text-md"
-        :to="lesson.sourceUrl"
+        :to="lesson?.sourceUrl"
       >
         Download Source Code
       </NuxtLink>
       <NuxtLink
-        v-if="lesson.downloadUrl"
+        v-if="lesson?.downloadUrl"
         class="font-normal text-gray-500 text-md"
-        :to="lesson.downloadUrl"
+        :to="lesson?.downloadUrl"
       >
         Download Video
       </NuxtLink>
     </div>
-    <VideoPlayer v-if="lesson.videoId" :video-id="lesson.videoId" />
-    <p>{{ lesson.text }}</p>
+    <VideoPlayer v-if="lesson?.videoId" :video-id="lesson?.videoId" />
+    <p>{{ lesson?.text }}</p>
     <LessonCompleteButton
       :model-value="isLessonComplete"
       @update:model-value="throw createError('Could not update');"
@@ -37,7 +37,7 @@ const { chapterSlug, lessonSlug } = route.params;
 // Instead of passing in a generic string ref, we pass in the slugs
 // so the composable itself will calculate what that URL should be.
 // The structure of the URL is encapsulated nicely within the composable.
-const lesson = await useLesson(chapterSlug, lessonSlug);
+const lesson = await useLesson(chapterSlug as string, lessonSlug as string);
 
 definePageMeta({
   middleware: [
@@ -91,6 +91,7 @@ const chapter = computed(() => {
 });
 
 const title = computed(() => {
+  if (!lesson.value) return '';
   return `${lesson.value.title} - ${course.title}`;
 });
 
@@ -101,6 +102,8 @@ const progress = useLocalStorage<boolean[][]>('progress', []);
 
 // grab the state that we're looking for from our progress state
 const isLessonComplete = computed(() => {
+  if (!lesson.value) return false;
+
   return (
     progress.value[chapter.value.number - 1]?.[lesson.value.number - 1] ?? false
   );
@@ -109,6 +112,8 @@ const isLessonComplete = computed(() => {
 // update progress state
 // eslint-disable-next-line
 const toggleComplete = () => {
+  if (!lesson.value) return;
+
   // create a chapter array if it doesn't exist
   if (!progress.value[chapter.value.number - 1]) {
     progress.value[chapter.value.number - 1] = [];
