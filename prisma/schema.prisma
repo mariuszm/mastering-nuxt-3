@@ -1,0 +1,51 @@
+// scaffold and configure our Prisma project
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// what will be using the Prisma types and schema with
+generator client {
+  provider      = "prisma-client-js" // generate client for JS
+  binaryTargets = ["native", "darwin-arm64"] // for apple sillicon
+
+  // if you use pnpm with shamefully_hoist for Nuxt 3
+  // (the structure of node_modules is then different from
+  // what Prisma is expecting)
+  output = "../node_modules/.prisma/client"
+}
+
+model Course {
+  id        Int       @id @default(autoincrement())
+  title     String
+  chapters  Chapter[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Chapter {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String
+  number    Int
+  lessons   Lesson[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+}
+
+model Lesson {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String
+  number      Int
+  downloadUrl String
+  videoId     Int
+  text        String
+  sourceUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Chapter     Chapter  @relation(fields: [chapterId], references: [id])
+  chapterId   Int
+}
