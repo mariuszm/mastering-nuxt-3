@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between w-full mb-4">
       <h1 class="text-3xl">
         <span class="font-medium">
-          <span class="font-bold">{{ title }}</span>
+          <span class="font-bold">{{ course.title }}</span>
         </span>
       </h1>
       <UserCard />
@@ -15,7 +15,7 @@
       >
         <h3>Chapters</h3>
         <div
-          v-for="chapter in chapters"
+          v-for="chapter in course.chapters"
           :key="chapter.slug"
           class="flex flex-col mb-4 space-y-1"
         >
@@ -62,8 +62,12 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
 
-const { chapters, title } = useCourse();
+const course = await useCourse();
 const firstLesson = await useFirstLesson();
+
+// NOTE: we're calling useCourse and useFirstLesson will immediately call
+// useCourse itself. But because of the caching (provided by useAsyncData)
+// we won't ever make multiple calls to an endpoint.
 
 const resetError = async (
   error: Ref<NuxtError<unknown> | null | undefined>,
