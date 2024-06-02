@@ -1,21 +1,7 @@
-import type { Chapter, Course, Lesson, LessonWithPath } from '@/types/course';
-import courseData from './courseData';
+// we can get rid of all the stuff because all the stuff (like data retrieval,
+// mapping it and adding different path to it, adding types) is now done
 
-export const useCourse = (): Course => {
-  const chapters: Chapter[] = courseData.chapters.map((chapter: Chapter) => {
-    const lessons: LessonWithPath[] = chapter.lessons.map((lesson: Lesson) => ({
-      ...lesson,
-      path: `/course/chapter/${chapter.slug}/lesson/${lesson.slug}`,
-    }));
+import type { CourseMeta } from '@/types/course';
 
-    return {
-      ...chapter,
-      lessons,
-    }
-  });
-
-  return {
-    ...courseData,
-    chapters,
-  };
-}
+// by the Meta endpoint
+export default async () => useFetchWithCache<CourseMeta>('/api/course/meta');
