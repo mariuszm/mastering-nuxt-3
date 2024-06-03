@@ -20,7 +20,20 @@ export const useFetchWithCache = async <T>(url: string) => {
 
   // check if we've hit the cache - if not then fetch that data
   if (!cached.value) {
-    const { data, error } = await useFetch<T>(url);
+    const { data, error } = await useFetch<T>(
+      url,
+      // By default, SSR context doesn't have access to cookies.
+      // When on the server-side, take the headers from the incoming request
+      // (which is causing the render to happen in the first place),
+      // grab the cookie from it and pass along on our isometric fetch.
+      // So fetching on the client-side we have access to these cookies
+      // (by default the browser will always pass these cookies along).
+      // But on the server-side Nuxt will just call that method directly.
+      // When we do that, the cookie is not present (it's just a method call),
+      // so we need to make sure that Nuxt knows that we wanna pass these headers along.
+      // NOTE: In latest version of Nuxt this is probably not needed anymore.
+      { headers: useRequestHeaders(['cookie']) },
+    );
 
     if (error.value) {
       throw createError({
