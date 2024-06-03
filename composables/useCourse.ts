@@ -1,7 +1,4 @@
-// we can get rid of all the stuff because all the stuff (like data retrieval,
-// mapping it and adding different path to it, adding types) is now done
-
-import type { CourseMeta } from '@/types/course';
+import type { CourseOutline } from '@/server/api/course/meta.get';
 
 // by the Meta endpoint
-export default async () => useFetchWithCache<CourseMeta>('/api/course/meta');
+export default async () => useFetchWithCache<CourseOutline>('/api/course/meta');
