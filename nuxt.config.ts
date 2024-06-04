@@ -1,6 +1,12 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', "@nuxt/eslint", "@nuxtjs/supabase"],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@vueuse/nuxt',
+    '@nuxt/eslint',
+    '@nuxtjs/supabase',
+    '@pinia/nuxt',
+  ],
 
   // based on https://github.com/nuxt-modules/supabase/blob/main/demo/nuxt.config.ts
   runtimeConfig: {
