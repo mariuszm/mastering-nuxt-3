@@ -33,6 +33,7 @@
 <script setup lang="ts">
 import { useCourseProgress } from '@/store/courseProgress';
 
+const user = useSupabaseUser();
 const course = await useCourse();
 const route = useRoute();
 const { chapterSlug, lessonSlug } = route.params;
@@ -94,7 +95,7 @@ definePageMeta({
 
 // check if the current lesson is completed
 const isCompleted = computed(() => {
-  return store.progress[chapterSlug][lessonSlug] || 0;
+  return store.progress?.[chapterSlug]?.[lessonSlug] || 0;
 });
 
 const chapter = computed(() => {
