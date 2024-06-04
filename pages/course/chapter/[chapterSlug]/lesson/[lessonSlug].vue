@@ -23,13 +23,16 @@
     <VideoPlayer v-if="lesson?.videoId" :video-id="lesson?.videoId" />
     <p>{{ lesson?.text }}</p>
     <LessonCompleteButton
-      :model-value="isLessonComplete"
-      @update:model-value="throw createError('Could not update');"
+      v-if="user"
+      :model-value="isCompleted"
+      @update:model-value="toggleComplete"
     />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useCourseProgress } from '@/store/courseProgress';
+
 const course = await useCourse();
 const route = useRoute();
 const { chapterSlug, lessonSlug } = route.params;
@@ -38,6 +41,11 @@ const { chapterSlug, lessonSlug } = route.params;
 // so the composable itself will calculate what that URL should be.
 // The structure of the URL is encapsulated nicely within the composable.
 const lesson = await useLesson(chapterSlug as string, lessonSlug as string);
+
+const store = useCourseProgress();
+const { initialize, toggleComplete } = store;
+
+initialize();
 
 definePageMeta({
   middleware: [
@@ -84,6 +92,11 @@ definePageMeta({
 //   );
 // }
 
+// check if the current lesson is completed
+const isCompleted = computed(() => {
+  return store.progress[chapterSlug][lessonSlug] || 0;
+});
+
 const chapter = computed(() => {
   return course.value.chapters.find(
     chapter => chapter.slug === route.params.chapterSlug,
@@ -96,31 +109,4 @@ const title = computed(() => {
 });
 
 useHead({ title });
-
-// track the state of LessonCompleteButton
-const progress = useLocalStorage<boolean[][]>('progress', []);
-
-// grab the state that we're looking for from our progress state
-const isLessonComplete = computed(() => {
-  if (!lesson.value) return false;
-
-  return (
-    progress.value[chapter.value.number - 1]?.[lesson.value.number - 1] ?? false
-  );
-});
-
-// update progress state
-// eslint-disable-next-line
-const toggleComplete = () => {
-  if (!lesson.value) return;
-
-  // create a chapter array if it doesn't exist
-  if (!progress.value[chapter.value.number - 1]) {
-    progress.value[chapter.value.number - 1] = [];
-  }
-
-  // set the value (toggling it)
-  progress.value[chapter.value.number - 1][lesson.value.number - 1] =
-    !isLessonComplete.value;
-};
 </script>
