@@ -44,7 +44,24 @@ export const useCourseProgress = defineStore('courseProgress', () => {
       [lesson]: !currentProgress,
     };
 
-    // TODO: update in DB
+    // update the progress in DB
+    try {
+      await $fetch(`/api/course/chapter/${chapter}/lesson/${lesson}/progress`, {
+        method: 'POST',
+        // automatically stringified by fetch
+        body: {
+          completed: !currentProgress,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+
+      // if the request failed, revert the progress value
+      progress.value[chapter] = {
+        ...progress.value[chapter],
+        [lesson]: currentProgress,
+      };
+    }
   };
 
   return {
