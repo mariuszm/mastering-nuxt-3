@@ -15,11 +15,18 @@
       >
         <h3>Chapters</h3>
         <div
-          v-for="chapter in course.chapters"
+          v-for="(chapter, index) in course.chapters"
           :key="chapter.slug"
           class="flex flex-col mb-4 space-y-1"
         >
-          <h4>{{ chapter.title }}</h4>
+          <h4 class="flex items-center justify-between">
+            {{ chapter.title }}
+            <span
+              v-if="percentageCompleted && user"
+              class="text-sm text-emerald-500"
+              >{{ percentageCompleted.chapters[index] }}%</span
+            >
+          </h4>
           <NuxtLink
             v-for="(lesson, index) in chapter.lessons"
             :key="lesson.slug"
@@ -33,6 +40,13 @@
             <span class="text-gray-500">{{ index + 1 }}.</span>
             <span>{{ lesson.title }}</span>
           </NuxtLink>
+        </div>
+        <div
+          v-if="percentageCompleted"
+          class="flex items-center justify-between mt-8 text-sm font-medium text-gray-500"
+        >
+          Course completion:
+          <span>{{ percentageCompleted.course }}%</span>
         </div>
       </div>
 
@@ -61,9 +75,14 @@
 
 <script setup lang="ts">
 import type { NuxtError } from '#app';
+import { useCourseProgress } from '~/store/courseProgress';
 
+const user = useSupabaseUser();
 const course = await useCourse();
 const firstLesson = await useFirstLesson();
+
+// get chapter completion percentages
+const { percentageCompleted } = storeToRefs(useCourseProgress());
 
 // NOTE: we're calling useCourse and useFirstLesson will immediately call
 // useCourse itself. But because of the caching (provided by useAsyncData)
