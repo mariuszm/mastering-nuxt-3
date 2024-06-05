@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Section class="flex flex-col items-center space-y-12">
+    <LandingSection class="flex flex-col items-center space-y-12">
       <h1 class="p-0 m-0 font-black text-blue-500 text-7xl">
         {{ course.title }}
       </h1>
@@ -19,16 +19,16 @@
       >
         Buy Now
       </button>
-    </Section>
-    <Section title="What You'll Learn">
+    </LandingSection>
+    <LandingSection title="What You'll Learn">
       <ul class="space-y-6 text-2xl font-medium">
         <li v-for="outcome in learningOutcomes" :key="outcome" class="relative">
-          <Badge />
+          <LandingBadge />
           {{ outcome }}
         </li>
       </ul>
-    </Section>
-    <Section title="Screenshots">
+    </LandingSection>
+    <LandingSection title="Screenshots">
       <div class="relative flex flex-row flex-wrap my-12">
         <img
           v-for="image in screenshots"
@@ -37,8 +37,8 @@
           class="w-1/2 transition border-4 shadow-xl rounded-xl border-slate-200 even:rotate-2 even:hover:-rotate-2 odd:-rotate-2 odd:hover:rotate-2"
         />
       </div>
-    </Section>
-    <Section title="Course Outline">
+    </LandingSection>
+    <LandingSection title="Course Outline">
       <!-- Get course outline from course meta data  -->
       <ul class="space-y-16 text-2xl font-medium">
         <li
@@ -46,9 +46,9 @@
           :key="chapter.slug"
           class="relative"
         >
-          <Badge>
+          <LandingBadge>
             {{ index + 1 }}
-          </Badge>
+          </LandingBadge>
           {{ chapter.title }}
           <ul class="mt-4 space-y-2">
             <li
@@ -56,16 +56,16 @@
               :key="`${chapter.slug}-${lesson.slug}`"
               class="relative flex items-center space-y-2 left-8"
             >
-              <Badge color="bg-blue-400">
+              <LandingBadge color="bg-blue-400">
                 {{ lesson.number }}
-              </Badge>
+              </LandingBadge>
               <span class="text-xl opacity-80">{{ lesson.title }}</span>
             </li>
           </ul>
         </li>
       </ul>
-    </Section>
-    <Payment v-if="showPayment" @close="showPayment = false" />
+    </LandingSection>
+    <LandingPayment v-if="showPayment" @close="showPayment = false" />
   </div>
 </template>
 
