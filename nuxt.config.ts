@@ -24,7 +24,10 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: ['/course/*'], // we implement our own auth behaviour in the auth middleware
+      exclude: [
+        '/course/*', // we implement our own auth behaviour in the auth middleware
+        '/landing', // SSG
+      ],
     },
   },
 });
