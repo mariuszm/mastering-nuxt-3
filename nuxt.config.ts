@@ -8,6 +8,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
 
+  nitro: {
+    prerender: {
+      routes: ['/landing'],
+    },
+  },
+
   // based on https://github.com/nuxt-modules/supabase/blob/main/demo/nuxt.config.ts
   runtimeConfig: {
     public: {
