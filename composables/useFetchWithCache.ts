@@ -45,7 +45,7 @@ export const useFetchWithCache = async <T>(url: string) => {
     // put this data into cache after it's fetched
     cached.value = data.value as T;
   } else {
-    console.log(`Getting valur from cache for ${url}`);
+    console.log(`Getting value from cache for ${url}`);
   }
 
   return cached;
