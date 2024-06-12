@@ -1,5 +1,5 @@
 <template>
-  <Modal @close="$emit('close')">
+  <LandingModal @close="$emit('close')">
     <div class="w-full max-w-2xl p-8 bg-slate-200 rounded-xl">
       <form>
         <h2 class="text-xl font-bold text-center">Buying {{ course.title }}</h2>
@@ -24,7 +24,7 @@
         </button>
       </form>
     </div>
-  </Modal>
+  </LandingModal>
 </template>
 
 <script setup>
