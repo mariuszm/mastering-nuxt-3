@@ -65,7 +65,7 @@
         </li>
       </ul>
     </LandingSection>
-    <LandingPayment v-if="showPayment" @close="showPayment = false" />
+    <LazyLandingPayment v-if="showPayment" @close="showPayment = false" />
   </div>
 </template>
 
