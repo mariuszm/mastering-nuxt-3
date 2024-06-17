@@ -22,7 +22,10 @@ export default defineNuxtConfig({
 
   // based on https://github.com/nuxt-modules/supabase/blob/main/demo/nuxt.config.ts
   runtimeConfig: {
+    stripeSecret: '',
+    // public - make available to the client
     public: {
+      stripeKey: '',
       baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     },
   },
