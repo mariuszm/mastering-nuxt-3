@@ -1,7 +1,19 @@
 <template>
   <LandingModal @close="$emit('close')">
     <div class="w-full max-w-2xl p-8 bg-slate-200 rounded-xl">
-      <form @submit.prevent="handleSubmit">
+      <div
+        v-if="success"
+        class="flex flex-col items-center justify-center space-y-6"
+      >
+        <h2 class="text-xl font-bold">Thanks for buying the course!</h2>
+        <button
+          class="flex items-center justify-center w-full h-12 px-16 mt-4 text-black transition bg-blue-300 rounded text-md focus:outline-none focus:shadow-outline hover:bg-blue-200"
+          @click="login"
+        >
+          Login with GitHub to access
+        </button>
+      </div>
+      <form v-else @submit.prevent="handleSubmit">
         <h2 class="text-xl font-bold text-center">Buying {{ course.title }}</h2>
         <div class="px-8 py-6 mt-8 text-base bg-white rounded shadow-md width">
           <div class="flex items-center justify-between w-full mb-8">
