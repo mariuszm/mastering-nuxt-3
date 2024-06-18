@@ -23,5 +23,8 @@
     "nuxt": "3.12.1",
     "pinia": "^2.1.7",
     "vite-plugin-vsharp": "^1.8.1"
+  },
+  "dependencies": {
+    "stripe": "^15.12.0"
   }
 }
