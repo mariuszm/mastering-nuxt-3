@@ -22,9 +22,16 @@
         </div>
 
         <button
-          class="flex items-center justify-center w-full h-12 px-16 mt-4 font-sans text-lg font-bold text-black transition bg-yellow-300 rounded cursor-pointer focus:outline-none focus:shadow-outline hover:bg-yellow-200"
+          class="flex items-center justify-center w-full h-12 px-16 mt-4 font-sans text-lg font-bold text-black transition rounded focus:outline-none focus:shadow-outline"
+          :class="
+            processingPayment || email === ''
+              ? 'bg-gray-300 cursor-not-allowed'
+              : 'bg-yellow-300 hover:bg-yellow-200 cursor-pointer'
+          "
+          :disabled="processingPayment || email === ''"
         >
-          <div>Pay $97</div>
+          <LandingLoading v-if="processingPayment" class="w-5 h-5" />
+          <div v-else>Pay $97</div>
         </button>
       </form>
     </div>
