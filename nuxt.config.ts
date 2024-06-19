@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   // based on https://github.com/nuxt-modules/supabase/blob/main/demo/nuxt.config.ts
   runtimeConfig: {
     stripeSecret: '',
+    stripeWebhookSecret: '',
     // public - make available to the client
     public: {
       stripeKey: '',

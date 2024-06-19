@@ -51,6 +51,7 @@ async function handlePaymentIntentSucceeded(paymentIntent: PaymentIntent) {
       },
     });
   } catch (error) {
+    console.error(error);
     throw createError({
       statusCode: 500,
       statusMessage: 'Error veryfing purchase',
@@ -67,6 +68,7 @@ async function handlePaymentIntentFailed(paymentIntent: PaymentIntent) {
       },
     });
   } catch (error) {
+    console.error(error);
     throw createError({
       statusCode: 500,
       statusMessage: 'Error removing purchase',
