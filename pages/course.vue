@@ -15,7 +15,7 @@
       >
         <h3>Chapters</h3>
         <div
-          v-for="(chapter, index) in course.chapters"
+          v-for="(chapter, chapterIndex) in course.chapters"
           :key="chapter.slug"
           class="flex flex-col mb-4 space-y-1"
         >
@@ -24,11 +24,11 @@
             <span
               v-if="percentageCompleted && user"
               class="text-sm text-emerald-500"
-              >{{ percentageCompleted.chapters[index] }}%</span
+              >{{ percentageCompleted.chapters[chapterIndex] }}%</span
             >
           </h4>
           <NuxtLink
-            v-for="(lesson, index) in chapter.lessons"
+            v-for="(lesson, lessonIndex) in chapter.lessons"
             :key="lesson.slug"
             class="flex flex-row px-4 py-1 -mx-4 space-x-1 font-normal prose-sm no-underline"
             :to="lesson.path"
@@ -37,7 +37,7 @@
               'text-gray-600': lesson.path !== $route.fullPath,
             }"
           >
-            <span class="text-gray-500">{{ index + 1 }}.</span>
+            <span class="text-gray-500">{{ lessonIndex + 1 }}.</span>
             <span>{{ lesson.title }}</span>
           </NuxtLink>
         </div>

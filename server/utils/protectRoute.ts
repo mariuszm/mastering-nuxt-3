@@ -14,7 +14,7 @@ export default async (event: H3Event) => {
     headers: {
       // make sure to pass along the cookie with the user session
       cookie: getHeader(event, 'cookie'),
-    },
+    } as HeadersInit,
   });
 
   if (!hasAccess) {

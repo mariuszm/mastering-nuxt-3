@@ -95,7 +95,7 @@ definePageMeta({
 
 // check if the current lesson is completed
 const isCompleted = computed(() => {
-  return store.progress?.[chapterSlug]?.[lessonSlug] || 0;
+  return store.progress?.[chapterSlug as string]?.[lessonSlug as string] || 0;
 });
 
 const chapter = computed(() => {

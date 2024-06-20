@@ -51,6 +51,8 @@
 </template>
 
 <script setup>
+defineEmits(['close']);
+
 const course = await useCourse();
 const config = useRuntimeConfig();
 const stripe = ref(null);

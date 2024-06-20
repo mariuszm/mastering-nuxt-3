@@ -14,5 +14,6 @@ watchEffect(async () => {
   });
 });
 
+// eslint-disable-next-line
 const render = () => {};
 </script>

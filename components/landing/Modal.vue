@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+defineEmits(['close']);
+
 const previousOverflow = ref('');
 onMounted(() => {
   // Lock the scrollbar by removing overflow if we have any
