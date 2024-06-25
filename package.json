@@ -26,5 +26,14 @@
   },
   "dependencies": {
     "stripe": "^15.12.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "deep-equal": "npm:@nolyfill/deep-equal@latest",
+      "hasown": "npm:@nolyfill/hasown@latest",
+      "is-generator-function": "npm:@nolyfill/is-generator-function@latest",
+      "isarray": "npm:@nolyfill/isarray@latest",
+      "side-channel": "npm:@nolyfill/side-channel@latest"
+    }
   }
 }
